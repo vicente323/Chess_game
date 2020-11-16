@@ -1,8 +1,9 @@
-#include<stdio.h>
+
 #include"Ajedrez_fun.h"
 
-
-void init_game(int **board){
+#include<stdio.h>
+#include<stdlib.h>
+void init_game(int **board, struct piece ***board2){
 
 for (int a=0; a<8; a++){
     puts("\n");
@@ -26,6 +27,34 @@ for (int a=0; a<9; a++){
         
     }
 }
+
+
+for (int a=0; a<8; a++){
+    puts("\n");
+    for(int b=0; b<8; b++){
+        ;
+       struct piece * caster =malloc(sizeof(struct piece));
+       caster->mvs=b;
+       *(board2[a]+b)=caster;
+  
+        
+        
+        
+    }
+}
+for (int a=0; a<8; a++){
+    puts("\n");
+    
+    for(int b=0; b<8; b++){
+        
+        
+        printf(" %i- ",board2[a][b]->mvs);
+      
+    
+        
+    }
+}
+
 
 
 

@@ -5,13 +5,13 @@ struct piece
 {
      char piece_type;
      int  mvs;
-     
+     char color;
 
 
     
 };
 
-void init_game(int **board);
+void init_game(int **board, struct piece ***board2);
 
 
 #endif
