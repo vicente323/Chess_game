@@ -40,12 +40,19 @@ void print_board(struct piece ***board2){
 }
 
 
-void move_piece(struct piece * piece){
-    //Esta funcion recibe la referencia de una pieza y  verifica si la coordenada deseada es valida para moverse 
+int Move_Black_Pieces(struct piece * piece, int x ,int y,struct piece ***board2){
+    //Esta funcion recibe la referencia de una pieza y  verifica si la coordenada deseada es valida para moverse retorna 0 para movs no validos 1 para movs validos y 2 para comer piezas
 
         if(piece->piece_type='P'){
 
             if(piece->mvs==0){
+                
+                if(y<=piece->y_axis-2 &&y>0){
+                    return 1;
+
+                }
+                
+
 
             
             }

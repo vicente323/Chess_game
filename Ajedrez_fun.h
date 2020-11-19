@@ -14,7 +14,7 @@ struct piece
 };
 
 void init_game( struct piece ***board2);
-void move_piece(struct piece * piece_mv);
+int move_Black_pieces(struct piece * piece,int x ,int y,struct piece ***board2);
 void print_board(struct piece ***board2);
 
 
