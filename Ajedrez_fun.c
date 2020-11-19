@@ -184,7 +184,7 @@ for (int a=0; a<8; a++){
 
              struct piece * caster =malloc(sizeof(struct piece));
              caster->color='W';
-             caster->piece_type='P';
+             caster->piece_type='p';
              caster->mvs=0;
              caster->y_axis=a;
              caster->x_axis=b;
@@ -200,7 +200,7 @@ for (int a=0; a<8; a++){
 
        struct piece * caster =malloc(sizeof(struct piece));
        caster->color='W';
-       caster->piece_type='T';
+       caster->piece_type='t';
        caster->mvs=0;
        caster->y_axis=a;
        caster->x_axis=b;
@@ -210,7 +210,7 @@ for (int a=0; a<8; a++){
          if(a==7&&b==1 || a==7&&b==6){
            struct piece * caster =malloc(sizeof(struct piece));
            caster->color='W';
-           caster->piece_type='C';
+           caster->piece_type='c';
            caster->mvs=0;//caballos 
            caster->y_axis=a;
            caster->x_axis=b;
@@ -226,7 +226,7 @@ for (int a=0; a<8; a++){
             struct piece * caster =malloc(sizeof(struct piece));
             caster->color='W';
             caster->mvs=0;
-            caster->piece_type='A';
+            caster->piece_type='a';
             caster->y_axis=a;
             caster->x_axis=b;
              *(board2[a]+b)=caster;
@@ -240,7 +240,7 @@ for (int a=0; a<8; a++){
             
             struct piece * caster =malloc(sizeof(struct piece));
             caster->color='W';
-            caster->piece_type='K';
+            caster->piece_type='k';
             caster->mvs=0;
             caster->y_axis=a;
              caster->x_axis=b;
@@ -253,7 +253,7 @@ for (int a=0; a<8; a++){
             
             struct piece * caster =malloc(sizeof(struct piece));
             caster->color='W';
-            caster->piece_type='R';
+            caster->piece_type='r';
             caster->mvs=0;
             caster->y_axis=a;
              caster->x_axis=b;
