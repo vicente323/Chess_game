@@ -27,5 +27,34 @@ board2[7]=ap7;
 init_game(board2);
 print_board(board2);
 
+int x=0;
+int y=0; 
+int x1=0;
+int y1=0; 
+puts("\n");
+
+
+printf("valor en y de la pieza\n");
+scanf("%i",&y);
+printf("valor en x   de la pieza\n");
+scanf("%i",&x);
+printf("es un %c  \n",board2[y][x]->piece_type);
+
+
+printf("nueva  coordenada y\n");
+scanf("%i",&y1);
+printf("nueva coordenada x\n");
+scanf("%i",&x1);
+
+int a=Move_white_Pieces(board2[y][x],x1,y1,board2);
+
+printf("la opcion fue %i",a);
+
+
+
+
+
+
+
     
 }

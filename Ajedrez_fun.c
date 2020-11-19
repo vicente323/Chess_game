@@ -40,63 +40,91 @@ void print_board(struct piece ***board2){
 }
 
 
-int Move_Black_Pieces(struct piece * piece, int x ,int y,struct piece ***board2){
+int Move_white_Pieces(struct piece * piece, int x ,int y,struct piece ***board2){
     //Esta funcion recibe la referencia de una pieza y  verifica si la coordenada deseada es valida para moverse retorna 0 para movs no validos 1 para movs validos y 2 para comer piezas
 
-        if(piece->piece_type='P'){
+        if(piece->piece_type=='p'){
+            puts("la pieza es un peon blanco ");
+            if(y==piece->y_axis-1&&x==piece->x_axis+1 &&x>=0 && y>=0 && x<=7 && y<=7){
+                        if(board2[y][x]==NULL)return 0;//commer derecha
+                        if(board2[y][x]->color !=piece->color)return 2;
+                        if(board2[y][x]->color ==piece->color)return 0;
+
+
+                    }
+                    if(y==piece->y_axis-1&&x==piece->x_axis-1    &&x>=0 && y>=0 && x<=7 && y<=7){
+                        if(board2[y][x]==NULL)return 0;//comer izquierda
+                        if(board2[y][x]->color !=piece->color)return 2;
+                        if(board2[y][x]->color ==piece->color)return 0;
+
+
+                    }
 
             if(piece->mvs==0){
+            
+                if(y==piece->y_axis-2 && y<piece->y_axis && board2[y][x]==NULL &&y>=0) return 1;
+                if(y==piece->y_axis-1 && y<piece->y_axis && board2[y][x]==NULL &&y>=0) return 1;//dos movimientos si el peon no se ha movido
                 
-                if(y<=piece->y_axis-2 &&y>0){
-                    return 1;
-
+                else
+                {
+                    return 0;
                 }
+                
+             }    
+
+          
+            if(piece->mvs>0){
+
+                    if(y==piece->y_axis-1 &&y<piece->y_axis&& y>0 && board2[y][x]==NULL)return 1;
+                        
+                    
+                    else
+                    {
+                        return 0;
+                    }
+                    
+                    
+
+                    
+                }
+
+                
+
                 
 
 
             
             }
 
-
-
-        }
-
-
-
-
-
+            else
+            {
+                return 0;
+            }
+            
 
 
 
+       
 
-}
+
+
+ }
+
+
+
+
+
+
+
+
+
+
 
 void init_game( struct piece ***board2){
 
     //esta funcion recibe un apuntador triple o un arreglo de apuntadores dobles osea un arreglo de 2D que guarda referencias a nuestras piezas 
 
-/*for (int a=0; a<8; a++){
-    puts("\n");
-    for(int b=0; b<8; b++){
-     *(board[a]+b)=0;
-        
-        
-        
-    }
-}
-for (int a=0; a<9; a++){
-    puts("\n");
-    printf("%i$ ",a);
-    
-    for(int b=0; b<8; b++){
-        
-        
-        if (a<8) printf(" %i- ",*(board[a]+b));
-      
-        if(a==8)printf(" %i- ",b);
-        
-    }
-}*/
+
 
 
 for (int a=0; a<8; a++){
@@ -281,7 +309,7 @@ for (int a=0; a<8; a++){
 
 
 
-for (int a=0; a<9; a++){
+/*for (int a=0; a<9; a++){
   
     puts("\n");
       printf("%iY",a );
@@ -308,7 +336,7 @@ for (int a=0; a<9; a++){
         
     }
 }
-
+*/
 
 
 
