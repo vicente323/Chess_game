@@ -17,5 +17,7 @@ void init_game( struct piece ***board2);
 int Move_white_Pieces(struct piece * piece,int x ,int y,struct piece ***board2);
 void print_board(struct piece ***board2);
 
+int Move_Black_Pieces(struct piece * piece, int x ,int y,struct piece ***board2);
+
 
 #endif
