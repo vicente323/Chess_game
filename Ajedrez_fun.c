@@ -269,6 +269,238 @@ int Move_white_Pieces(struct piece * piece, int x ,int y,struct piece ***board2)
             
         }
         if(piece->piece_type=='c'){
+              
+                printf("la pieza es un c\n");
+            if(x>7 ||x<0 || y>7|| y<0)return 0;  
+                          
+                
+                
+
+            if(x==piece->x_axis-2&& y==piece->y_axis-1){
+                
+                
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+ 
+                
+                }
+            if(x==piece->x_axis+1 && y==piece->y_axis-2){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+
+
+            }
+
+
+            if(x==piece->x_axis-1 && y==piece->y_axis-2){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->piece_type!=piece->piece_type)return 2;
+                }
+
+
+
+            }
+            if(x==piece->x_axis-2 && y==piece->y_axis+1){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+
+
+            }
+            if(x==piece->x_axis-2 && y==piece->y_axis-1){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+
+
+            }
+            if(x==piece->x_axis+2 && y==piece->y_axis-1){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+
+
+            }
+
+              if(x==piece->x_axis+2 && y==piece->y_axis+1){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+
+
+            }
+
+              if(x==piece->x_axis+1 && y==piece->y_axis+2){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+
+
+            }
+              if(x==piece->x_axis-1 && y==piece->y_axis+2){
+
+                if(board2[y][x]==NULL)return 1;
+                if(board2[y][x]!=NULL){ 
+                    if(board2[y][x]->color==piece->color)return 0;
+                    if(board2[y][x]->color!=piece->color)return 2;
+                }
+
+                else
+                {
+                    return 0;
+                }
+                
+
+
+
+            }
+
+        if(piece->piece_type=='k'){
+
+            printf("la pieza es un k\n");
+            if(x>7 ||x<0 || y>7|| y<0)return 0;  
+
+            if(piece->x_axis+1==x &&piece->y_axis==y){
+
+                        //uno hacia derecha
+                        if(board2[y][x]==NULL)return 1;
+                        if(board2[y][x]!=NULL){
+                            if(board2[y][x]->color==piece->color)return 0;
+                            if(board2[y][x]->color!=piece->color) return 1;
+
+                        }
+
+                }
+            if(piece->x_axis-1==x&&piece->y_axis==y){
+                //izquierda 
+                if(board2[y][x]==NULL)return 1;
+                        if(board2[y][x]!=NULL){
+                            if(board2[y][x]->color==piece->color)return 0;
+                            if(board2[y][x]->color!=piece->color) return 1;
+
+                        }
+                
+            }
+
+
+            if(piece->x_axis==x&&piece->y_axis+1==y){
+                //uno para arriba 
+                if(board2[y][x]==NULL)return 1;
+                        if(board2[y][x]!=NULL){
+                            if(board2[y][x]->color==piece->color)return 0;
+                            if(board2[y][x]->color!=piece->color) return 1;
+
+                        }
+                
+            }
+
+            if(piece->x_axis==x&&piece->y_axis-1==y){
+                //uno para abajo- 
+                if(board2[y][x]==NULL)return 1;
+                        if(board2[y][x]!=NULL){
+                            if(board2[y][x]->color==piece->color)return 0;
+                            if(board2[y][x]->color!=piece->color) return 1;
+
+                        }
+                
+            }
+
+
+            if(piece->x_axis+1==x&&piece->y_axis+1==y){
+                //diagonal derecha
+                if(board2[y][x]==NULL)return 1;
+                        if(board2[y][x]!=NULL){
+                            if(board2[y][x]->color==piece->color)return 0;
+                            if(board2[y][x]->color!=piece->color) return 1;
+
+                        }
+                
+            }
+
+            if(piece->x_axis-1==x&&piece->y_axis+1==y){
+                            //diagonal izquierda
+                            if(board2[y][x]==NULL)return 1;
+                                    if(board2[y][x]!=NULL){
+                                        if(board2[y][x]->color==piece->color)return 0;
+                                        if(board2[y][x]->color!=piece->color) return 1;
+
+                                    }
+                            
+                        }
+            if(piece->x_axis+1==x&&piece->y_axis-1==y){
+                //diagonal para abajo derecha 
+                if(board2[y][x]==NULL)return 1;
+                        if(board2[y][x]!=NULL){
+                            if(board2[y][x]->color==piece->color)return 0;
+                            if(board2[y][x]->color!=piece->color) return 1;
+
+                        }
+                
+            }
+            if(piece->x_axis-1==x&&piece->y_axis-1==y){
+                //diagonal para abajo izquierda
+                if(board2[y][x]==NULL)return 1;
+                        if(board2[y][x]!=NULL){
+                            if(board2[y][x]->color==piece->color)return 0;
+                            if(board2[y][x]->color!=piece->color) return 1;
+
+                        }
+                
+            }
+
+
+
+
+
+
+
+
+            else
+            {
+                return 0;
+            }
+            
+        }
+
+
+          
+
+
+
+
+
 
 
 
@@ -545,7 +777,7 @@ for (int a=0; a<8; a++){
        
         if(board2[a][b]==NULL){
 
-            printf(" X- " );
+            printf(" X- " );    
         }
         else  if(a<8)
         {

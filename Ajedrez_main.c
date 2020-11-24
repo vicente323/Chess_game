@@ -1,6 +1,7 @@
 #include"Ajedrez_fun.h"
 #include<stdio.h>
 #include<stdlib.h>
+#include<conio.h>
 void main(){
 
 struct piece **  board2[8];
@@ -54,7 +55,7 @@ printf("la opcion fue %i\n",a);
 
 
 
-
+/*
 
 
 printf("valor en y de la pieza\n");
@@ -77,13 +78,13 @@ scanf("%i",&x1);
 
 
 
- a=Move_Black_Pieces(board2[y][x],x1,y1,board2);
+ a=Move_white_Pieces(board2[y][x],x1,y1,board2);
 
 printf("la opcion fue %i",a);
 
 
 
-
+*/
 
 
 
