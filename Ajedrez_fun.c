@@ -6,87 +6,110 @@
 
 
 
-int torre(struct piece * piece, int x, int y, struct piece ***board2)
+void begin(struct gamestate game ){
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int torre(struct piece * piece, int x, int y, struct piece *** board2)
         {
+            int filas=piece->y_axis;
+            int columna=piece->x_axis;
+            int n;
+            int bandera;
 
-            int valid_mvs_izq=0;
-           int filas=piece->y_axis;
-           int columnas=piece->x_axis;
-           int n=1;
-           //Horizontal
-           while(board2[filas][columnas-n]==NULL && columnas-n>=0) {
-               valid_mvs_izq++;
-               if (board2[filas][columnas - n] != NULL) {
-                   if (board2[filas][columnas - n]->color != piece->color && board2[filas][columnas - n]->x_axis == x &&
-                       board2[filas][columnas - n]->y_axis == y)
-                       return 2;
-                   if (board2[filas][columnas - n]->color == piece->color && board2[filas][columnas - n]->x_axis == x &&
-                       board2[filas][columnas - n]->y_axis == y)
-                       return 0;
-               }
-               n++;
-               piece->mvs++;
-           }
-           if (valid_mvs_izq>=0 && valid_mvs_izq<=7 && y==piece->y_axis)
-               return 1;
-           n=1;
-           int mov_derecha=0;
-           while(board2[filas][columnas+n]==NULL && columnas+n<=7) {
-                mov_derecha++;
-                if (board2[filas][columnas + n] != NULL) {
-                    if (board2[filas][columnas + n]->color != piece->color && board2[filas][columnas + n]->x_axis == x &&
-                        board2[filas][columnas + n]->y_axis == y)
-                        return 2;
-                    if (board2[filas][columnas + n]->color == piece->color && board2[filas][columnas + n]->x_axis == x &&
-                        board2[filas][columnas + n]->y_axis == y)
-                        return 0;
-                }
-               n++;
-               piece->mvs++;
+            if (filas==y && columna==x){//Movimiento en la misma posicion
+                return  0;
             }
-            if (mov_derecha>=0 && mov_derecha<=7 && y==piece->y_axis)
-                return 1;
-           //Vertical
-           n=1;
-           int mov_abajo=0;
-            while(board2[filas-n][columnas]==NULL && filas-n>-1) {
-                mov_abajo++;
-                if (board2[filas-n][columnas] != NULL) {
-                    if (board2[filas-n][columnas]->color != piece->color && board2[filas-n][columnas]->y_axis == y &&
-                        board2[filas-n][columnas]->x_axis == x)
-                        return 2;
-                    if (board2[filas-n][columnas]->color == piece->color && board2[filas][columnas]->y_axis == y &&
-                        board2[filas-n][columnas]->x_axis == x)
-                        return 0;
+            //Movimiento general de la torre
+            //Izquierda
+            if (columna>x && filas==y)
+            {
+                n=1;
+                while(board2[filas][columna-n]== NULL && columna-n>=0 )
+                {
+                    bandera=1;
+                    n++;
                 }
-                n++;
-                piece->mvs++;
+                if (board2[filas][columna-n]->color !=piece->color && filas==y && columna-n==x){
+                    bandera= 2;}
+                if (board2[filas][columna-n]->color ==piece->color && filas==y && columna-n==x){
+                    bandera= 0;}
+                if (filas==y && columna-n!=x)bandera=0;
+                    
             }
-            if (mov_abajo>=0 && mov_abajo<=7 && x==piece->x_axis)
-                return 1;
-        n=1;
-        int mov_arriba=0;
-            while(board2[filas-n][columnas]==NULL && filas-n<=7) {
-                mov_arriba++;
-                if (board2[filas+n][columnas] != NULL) {
-                    if (board2[filas+n][columnas]->color != piece->color && board2[filas+n][columnas]->y_axis == y &&
-                        board2[filas+n][columnas]->x_axis == x)
-                        return 2;
-                    if (board2[filas+n][columnas]->color == piece->color && board2[filas][columnas]->y_axis == y &&
-                        board2[filas+n][columnas]->x_axis == x)
-                        return 0;
+            else if (columna<x && filas==y)//Derecha
+            {
+                n=1;
+                while (board2[filas][columna+n]==NULL && columna+n<=7 )
+                {
+                    bandera=1;
+                    n++;
                 }
-                n++;
-                piece->mvs++;
+                if (board2[filas][columna+n]->color !=piece->color && filas==y && columna+n==x)
+                    bandera=2;
+                if (board2[filas][columna+n]->color ==piece->color && filas==y && columna+n==x)
+                    bandera=0;
+                if (filas==y && columna+n!=x)
+                    bandera=0;
             }
-            if (mov_arriba>=0 && mov_arriba<=7 && x==piece->x_axis)
-                return 1;
-
+            else if (filas>y && columna==x) {//Arriba
+                n = 1;
+                while (board2[filas - n][columna] == NULL && filas - n >= 0 ) {
+                    bandera = 1;
+                    n++;
+                }
+                if (board2[filas - n][columna]->color != piece->color && filas - n == y && columna== x)
+                    bandera = 2;
+                if (board2[filas - n][columna + n]->color == piece->color && filas - n == y && columna== x)
+                    bandera = 0;
+                if (filas-n!=y && columna==x)
+                    bandera=0;
+            }
+            else if (filas<y && columna== x)//Abajo
+            {
+                n = 1;
+                while (board2[filas + n][columna] == NULL && filas + n <= 7 ) {
+                    bandera = 1;
+                    n++;
+                }
+                if (board2[filas + n][columna]->color != piece->color && filas + n == y && columna == x)
+                    bandera = 2;
+                if (board2[filas + n][columna]->color == piece->color && filas + n == y && columna== x)
+                    bandera = 0;
+                if (filas+n!=y && columna==x)
+                    bandera=0;
+            }
+            else
+            {
+                puts("Eso es ilegal");
+                bandera=0;
+            }
+            return bandera;
         }
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -104,7 +127,104 @@ int torre(struct piece * piece, int x, int y, struct piece ***board2)
 
 
 
-int Move_Black_Pieces(struct piece * piece, int x ,int y,struct piece ***board2){
+
+
+
+
+
+
+
+
+
+
+int alfil(struct piece * piece, int x, int y, struct piece *** board2)
+        {
+    int filas=piece->y_axis;
+    int columna=piece->x_axis;
+    int bandera;
+    int n;//Variable que ayuda a los movimientos
+    if (filas==y && columna==x){//Movimiento en la misma posicion
+        return  0;
+    }
+    //Movimiento general el alfil
+    if (filas>y && columna<x)//Diagonal superior derecha
+    {
+        n=1;
+       while (board2[filas-n][columna+n]==NULL && filas-n>=0 && columna+n<=7)
+       {
+           bandera=1;
+           n++;
+       }
+       if (board2[filas-n][columna+n]->color !=piece->color && filas-n==y && columna+n==x){
+           bandera=2;}
+       if (board2[filas-n][columna+n]->color ==piece->color && filas-n==y && columna+n==x){
+            bandera=0;}
+       /* if (filas-n!=y && columna+n !=x)
+            bandera=0;*/
+        
+    }
+    else if (filas>y && columna>x)//Diagonal superior izquierda
+    {
+        n=1;
+        while (board2[filas-n][columna-n]==NULL && filas-n>=0 && columna-n>=0)
+        {
+            bandera=1;
+            n++;
+        }
+        if (board2[filas-n][columna-n]->color !=piece->color && filas-n==y && columna-n==x)
+            bandera=2;
+        if (board2[filas-n][columna-n]->color ==piece->color && filas-n==y && columna-n==x)
+            bandera=0;
+       /* if (filas-n!=y && columna-n !=x)
+            bandera=0;*/
+    }
+    else if (filas<y && columna<x) {//Diagonal inferior derecha
+        n = 1;
+        while (board2[filas + n][columna + n] == NULL && filas + n <= 7 && columna + n <= 7) {
+            bandera = 1;
+            n++;
+        }
+        if (board2[filas + n][columna + n]->color != piece->color && filas + n == y && columna + n == x)
+            bandera = 2;
+        if (board2[filas + n][columna + n]->color == piece->color && filas + n == y && columna + n == x)
+            bandera = 0;
+       /* if (filas+n!=y && columna+n !=x)
+            bandera=0;*/
+    }
+    else if (filas<y && columna>x)//Diagonal inferior izqu
+    {
+        n = 1;
+        while (board2[filas + n][columna - n] == NULL && filas + n <= 7 && columna + n >=0) {
+            bandera = 1;
+            n++;
+        }
+        if (board2[filas + n][columna - n]->color != piece->color && filas + n == y && columna - n == x)
+            bandera = 2;
+        if (board2[filas + n][columna - n]->color == piece->color && filas + n == y && columna - n == x)
+            bandera = 0;
+       /* if (filas+n!=y && columna-n !=x)
+            bandera=0;*/
+    }
+    else
+        {
+        puts("Eso es ilegal");
+        bandera=0;
+        }
+
+    return bandera;
+        }
+
+
+
+
+
+
+
+
+
+
+
+int Black_Pawn(struct piece * piece, int x ,int y,struct piece ***board2){
 
 
 
@@ -190,9 +310,9 @@ void print_board(struct piece ***board2){
         
         
        
-        if(board2[a][b]==NULL){
+        if(board2[a][b]==NULL&&a<8){
 
-            printf(" X- " );
+            printf(" X- ");
         }
         else  if(a<8)
         {
@@ -217,7 +337,7 @@ void print_board(struct piece ***board2){
 }
 
 
-int Move_white_Pieces(struct piece * piece, int x ,int y,struct piece ***board2){
+int White_Pawn(struct piece * piece, int x ,int y,struct piece ***board2){
     //Esta funcion recibe la referencia de una pieza y  verifica si la coordenada deseada es valida para moverse retorna 0 para movs no validos 1 para movs validos y 2 para comer piezas
    
    
@@ -268,6 +388,15 @@ int Move_white_Pieces(struct piece * piece, int x ,int y,struct piece ***board2)
 
             
         }
+
+
+
+ }
+
+
+
+int caballo(struct piece * piece, int x ,int y,struct piece ***board2){
+    
         if(piece->piece_type=='c'){
               
                 printf("la pieza es un c\n");
@@ -356,19 +485,19 @@ int Move_white_Pieces(struct piece * piece, int x ,int y,struct piece ***board2)
 
 
 
-            }
+              }
 
               if(x==piece->x_axis+1 && y==piece->y_axis+2){
 
                 if(board2[y][x]==NULL)return 1;
                 if(board2[y][x]!=NULL){ 
                     if(board2[y][x]->color==piece->color)return 0;
-                    if(board2[y][x]->color!=piece->color)return 2;
-                }
+                    if(board2[y][x]->color!=piece->color)return 2; }
+               
+              }
 
 
-
-            }
+            
               if(x==piece->x_axis-1 && y==piece->y_axis+2){
 
                 if(board2[y][x]==NULL)return 1;
@@ -377,17 +506,26 @@ int Move_white_Pieces(struct piece * piece, int x ,int y,struct piece ***board2)
                     if(board2[y][x]->color!=piece->color)return 2;
                 }
 
-                else
-                {
-                    return 0;
-                }
-                
 
 
 
-            }
+              }
 
-        if(piece->piece_type=='k'){
+      
+
+
+
+    }
+
+          
+
+ 
+}
+
+
+
+int king(struct piece * piece, int x ,int y,struct piece ***board2){
+  if(piece->piece_type=='k'){
 
             printf("la pieza es un k\n");
             if(x>7 ||x<0 || y>7|| y<0)return 0;  
@@ -499,77 +637,7 @@ int Move_white_Pieces(struct piece * piece, int x ,int y,struct piece ***board2)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-        }
-
-
-
-        if(piece->piece_type=='t'){
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-
-
-
-
-
-        else{
-            
-                return 0;
-            }
-            
-
-
-
-       
-
-
-
- }
-
-
-
+}
 
 
 
