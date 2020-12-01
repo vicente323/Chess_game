@@ -4,6 +4,7 @@
 #include<conio.h>
 void main(){
 
+// /"Siempre existe una solución y si crees que no existe, solo es que la desconoces"-Show 2020
 
 
 struct piece **  board2[8];
@@ -27,11 +28,19 @@ board2[5]=ap5;
 board2[6]=ap6;
 board2[7]=ap7;
 struct gamestate new_game;
-new_game.turn=1;
-init_game(board2);
-print_board(board2);
 
-    puts("\n");
+struct piece * blancas[16];
+struct piece * negras[16];
+
+
+new_game.blancas=blancas;
+new_game.Negras=negras;
+new_game.turn=1;
+
+
+init_game(board2);
+
+
 int x=0;
 int y=0;
 int x1=0;
@@ -40,217 +49,229 @@ int y1=0;
 int opt=0;
 int result=0;
 
+board2[6][7]=NULL;
+
+board2[6][0]=NULL;
+
+board2[0][0]=NULL;
+board2[1][0]=NULL;
+
+board2[1][0]=NULL;
+
+ while(new_game.turn>0){
+        print_board(board2);
+        puts("\n");
+        puts("\n");
+        puts("\n");
+        puts("\n");
+        puts("\n");
 
 
+        if(new_game.turn==1){
+            puts("Turno de las blancas \n");
 
-
-while(new_game.turn>0){
-
-
-    puts("\n");
-    puts("\n");
-    puts("\n");
-    puts("\n");
-    puts("\n");
-   
-
-
-    if(new_game.turn==1){
-
-        puts("Turno de las blancas \n");
-
-        
-        printf("valor en y de la pieza\n");
-        scanf("%i",&y);
-        printf("valor en x   de la pieza\n");
-        scanf("%i",&x);
-
-
-        printf("nueva  coordenada y\n");
-        scanf("%i",&y1);
-        printf("nueva coordenada x\n");
-        scanf("%i",&x1);
-
-
-        while (board2[y][x]==NULL||board2[y][x]->color!='W')
-        {   puts("hey eso es ilegal");
             printf("valor en y de la pieza\n");
             scanf("%i",&y);
             printf("valor en x   de la pieza\n");
             scanf("%i",&x);
 
-            
             printf("nueva  coordenada y\n");
             scanf("%i",&y1);
             printf("nueva coordenada x\n");
             scanf("%i",&x1);
-
-        }
+     
             
-        if(board2[y][x]->piece_type=='p'){
-           result= White_Pawn(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
+             if(board2[y][x]!=NULL&&board2[y][x]->color=='W'){
+
+                        if(board2[y][x]->piece_type=='p'){
+                            result= White_Pawn(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                             printf("%i es el resultado del peon",result);
+
+                        }
+                        if(board2[y][x]->piece_type=='t'){
+                            result=Torre(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                            printf("%i es el resultado de la torre\n",result);
+                        }
+                        if(board2[y][x]->piece_type=='c'){
+                            result=caballo(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
+
+                        if(board2[y][x]->piece_type=='a'){
+                            result=alfil(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
+                        if(board2[y][x]->piece_type=='k'){
+                            result=king(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
 
 
+
+
+
+                }
+
+
+
+            while (board2[y][x]==NULL||board2[y][x]->color!='W'||result==0)
+            {   puts("hey eso es ilegal");
+                printf("valor en y de la pieza\n");
+                scanf("%i",&y);
+                printf("valor en x   de la pieza\n");
+                scanf("%i",&x);
+
+                printf("nueva  coordenada y\n");
+                scanf("%i",&y1);
+                printf("nueva coordenada x\n");
+                scanf("%i",&x1);
+                if(board2[y][x]!=NULL&&board2[y][x]->color=='W'){
+
+                        if(board2[y][x]->piece_type=='p'){
+                            result= White_Pawn(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                           
+
+                        }
+                        if(board2[y][x]->piece_type=='t'){
+                            result=Torre(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
+                        if(board2[y][x]->piece_type=='c'){
+                            result=caballo(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
+
+                        if(board2[y][x]->piece_type=='a'){
+                            result=alfil(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
+                        if(board2[y][x]->piece_type=='k'){
+                            result=king(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
+
+
+
+
+
+                }
+            }  
+            
+
+
+            printf("el resultado fue %i\n",result);
+            swap(board2, y, x,  y1, x1,  result );
+             piece_count(board2,&new_game);
         }
-        if(board2[y][x]->piece_type=='t'){
+        if(new_game.turn==2){
+            new_game.turn=1;
+            puts("Turno de las negras \n");
 
-            result=torre(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
+            printf("valor en y de la pieza\n");
+            scanf("%i",&y);
+            printf("valor en x   de la pieza\n");
+            scanf("%i",&x);
 
+            printf("nueva  coordenada y\n");
+            scanf("%i",&y1);
+            printf("nueva coordenada x\n");
+            scanf("%i",&x1);
+               
+             if(board2[y][x]!=NULL&&board2[y][x]->color=='B'){
+
+                        if(board2[y][x]->piece_type=='p'){
+                            result= White_Pawn(board2[y][x],x1,y1,board2);
+                            
+
+                        }
+                        if(board2[y][x]->piece_type=='t'){
+                            result=Torre(board2[y][x],x1,y1,board2);
+                            
+                        }
+                        if(board2[y][x]->piece_type=='c'){
+                            result=caballo(board2[y][x],x1,y1,board2);
+                            
+                        }
+
+                        if(board2[y][x]->piece_type=='a'){
+                            result=alfil(board2[y][x],x1,y1,board2);
+                            
+                        }
+                        if(board2[y][x]->piece_type=='k'){
+                            result=king(board2[y][x],x1,y1,board2);
+                            
+                        }
+
+
+
+
+
+                }
+
+
+
+
+
+
+                    while (board2[y][x]==NULL||board2[y][x]->color!='B'||result==0)
+                        {   puts("hey eso es ilegal");
+                            printf("valor en y de la pieza\n");
+                            scanf("%i",&y);
+                            printf("valor en x   de la pieza\n");
+                            scanf("%i",&x);
+
+                            printf("nueva  coordenada y\n");
+                            scanf("%i",&y1);
+                            printf("nueva coordenada x\n");
+                            scanf("%i",&x1);
+                            if(board2[y][x]!=NULL&&board2[y][x]->color=='B'){
+
+                                    if(board2[y][x]->piece_type=='p'){
+                                        result= White_Pawn(board2[y][x],x1,y1,board2);
+                                       
+
+                                    }
+                                    if(board2[y][x]->piece_type=='t'){
+                                        result=Torre(board2[y][x],x1,y1,board2);
+                                    }
+                                    if(board2[y][x]->piece_type=='c'){
+                                        result=caballo(board2[y][x],x1,y1,board2);
+                                        
+                                    }
+
+                                    if(board2[y][x]->piece_type=='a'){
+                                        result=alfil(board2[y][x],x1,y1,board2);
+                                      
+                                    }
+                                    if(board2[y][x]->piece_type=='k'){
+                                        result=king(board2[y][x],x1,y1,board2);
+                                        
+                                    }
+
+
+
+
+
+                            }
+                        }  
+
+
+
+
+
+            printf("el resultado fue %i\n",result);
+            swap(board2, y, x,  y1, x1,  result );
+            piece_count(board2,&new_game);
         }
 
-        if(board2[y][x]->piece_type=='c'){
 
-            result=caballo(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
 
-        }
 
-        
-        if(board2[y][x]->piece_type=='a'){
-
-            result=alfil(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
-
-        }
-        if(board2[y][x]->piece_type=='k'){
-
-           result=king(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
-
-        }
        
-        
-
-
-        printf("el resultado fue %i\n",result);
-
-    }
-    if(new_game.turn==2){
-        puts("Turno de las negras \n");
-        
-        
-        printf("valor en y de la pieza\n");
-        scanf("%i",&y);
-        printf("valor en x   de la pieza\n");
-        scanf("%i",&x);
-
-
-        printf("nueva  coordenada y\n");
-        scanf("%i",&y1);
-        printf("nueva coordenada x\n");
-        scanf("%i",&x1);
-
-
-        while (board2[y][x]==NULL||board2[y][x]->color!='B')
-        {   puts("hey eso es ilegal");
-            printf("valor en y de la pieza\n");
-            scanf("%i",&y);
-            printf("valor en x   de la pieza\n");
-            scanf("%i",&x);
-
-
-            printf("nueva  coordenada y\n");
-            scanf("%i",&y1);
-            printf("nueva coordenada x\n");
-            scanf("%i",&x1);
-
-
-        }
-            
-        if(board2[y][x]->piece_type=='P'){
-            result=Black_Pawn(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
-
-
-        }
-
-         if(board2[y][x]->piece_type=='T'){
-
-            result=torre(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
-
-        }
-
-        if(board2[y][x]->piece_type=='C'){
-
-            result=caballo(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
-
-        }
-
-        
-        if(board2[y][x]->piece_type=='A'){
-
-            result=alfil(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
-
-        }
-        if(board2[y][x]->piece_type=='K'){
-
-           result=king(board2[y][x],x1,y1,board2);
-            new_game.turn=2;
-
-        }
-
-        printf("el resultado fue %i",result);
-
     }
 
 
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/*
-board2[6][3]->piece_type='a';
-
-print_board(board2);
-
- 
-int x1=0;
-int y1=0; 
-puts("\n");
-
-
-
-
-printf("valor en y de la pieza\n");
-scanf("%i",&y);
-printf("valor en x   de la pieza\n");
-scanf("%i",&x);
-printf("es un %c  \n",board2[y][x]->piece_type);
-
-
-printf("nueva  coordenada y\n");
-scanf("%i",&y1);
-printf("nueva coordenada x\n");
-scanf("%i",&x1);
-
-int a=alfil(board2[y][x],x1,y1,board2);
-
-printf("la opcion fue %i\n",a);
-
-
-
-
-*/
-
-
-
-    
-}
+ }

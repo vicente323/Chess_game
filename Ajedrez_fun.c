@@ -6,10 +6,48 @@
 
 
 
-void begin(struct gamestate game ){
+void piece_count(struct piece ***board2,struct gamestate * game){
+
+int b=0;
+int n=0;
+for(int u=0; u<16; u++){
+
+    game->Negras[u]=NULL;
+    game->blancas[u]=NULL;
+
+}
+
+for(int x=0; x<8; x++){
+
+    for(int y=0; y<8; y++){
+
+        if(board2[x][y]!=NULL){
+
+            if(board2[x][y]->color=='W'){
+
+                game->blancas[b]=board2[x][y];
+                b++;
 
 
 
+
+            }
+            if(board2[x][y]->color=='B'){
+
+
+                game->blancas[n]=board2[x][y];
+                n++;
+
+            }
+
+
+
+
+        }
+
+
+
+    }
 
 
 
@@ -20,93 +58,332 @@ void begin(struct gamestate game ){
 
 
 
+}
+
+void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
+    struct piece * help;
+
+    if(result==1){
+
+            help=board2[y][x];
+            board2[ny][nx]=help;
+            board2[ny][nx]->x_axis=nx;
+            board2[ny][nx]->y_axis=ny;
+            board2[y][x]=NULL;
 
 
+    }
+    if (result==2){
+           help=board2[ny][nx];
+           board2[ny][nx]=board2[y][x];
+           board2[ny][nx]->x_axis=nx;
+            board2[ny][nx]->y_axis=ny;
+           board2[y][x]=NULL;
+           free(help);
 
 
+    }
 
 
+}
 
 
+ int Torre(struct piece * piece, int x, int y, struct piece *** board2){
 
-
-
-int torre(struct piece * piece, int x, int y, struct piece *** board2)
-        {
             int filas=piece->y_axis;
             int columna=piece->x_axis;
-            int n;
-            int bandera;
 
-            if (filas==y && columna==x){//Movimiento en la misma posicion
-                return  0;
-            }
-            //Movimiento general de la torre
-            //Izquierda
-            if (columna>x && filas==y)
-            {
-                n=1;
-                while(board2[filas][columna-n]== NULL && columna-n>=0 )
-                {
-                    bandera=1;
-                    n++;
-                }
-                if (board2[filas][columna-n]->color !=piece->color && filas==y && columna-n==x){
-                    bandera= 2;}
-                if (board2[filas][columna-n]->color ==piece->color && filas==y && columna-n==x){
-                    bandera= 0;}
-                if (filas==y && columna-n!=x)bandera=0;
+            if(x==piece->x_axis&&  y<piece->y_axis &&   y<=7){
+                int conto=0;
+                filas=filas-1;
+                int bandera=0;
+
+                while (bandera==0)
+                    {   
+                        if(filas>=0){
+                            if (board2[filas][columna]==NULL)
+                            {
+                                filas--; 
+                                conto++;
+                            }
+                            if (board2[filas][columna]!=NULL)
+                            {
+                                bandera=1;
+                                //conto++;
+                            }
+                        
+                            
+                        }
+                        
+                        if(filas == -1)bandera=1;
+                    }
+                    int max_idx_y=piece->y_axis-conto;
+                    printf("el contador de la torre fue %i\n",conto);
+                    printf("filas %i\n",filas);
+                    int ret2=0;
+                    if (board2[max_idx_y-1][columna]!=NULL){
+                       puts("entro al ret2\n"); 
+                        ret2=conto+1;
+                        int h=ret2;
+                        ret2=piece->y_axis-h;
+                        printf("%i ret2\n",ret2);
+                        }
+
+                   
+
+                    printf("max indx %i\n",max_idx_y);
+                    if(x==piece->x_axis && y>=max_idx_y)return 1;
+                    if(board2[ret2][x]!=NULL){
+                        puts("entro al 2");
+                         if(x==piece->x_axis && y==ret2  && board2[ret2][x]->color!=piece->color)return 2;
+                         else
+                         {
+                             return 0;
+                         }
+                         
+                    }
+                   
+                    else
+                    {
+                        return 0;
+                    }
                     
+
+
+                
+
+
             }
-            else if (columna<x && filas==y)//Derecha
-            {
-                n=1;
-                while (board2[filas][columna+n]==NULL && columna+n<=7 )
-                {
-                    bandera=1;
-                    n++;
-                }
-                if (board2[filas][columna+n]->color !=piece->color && filas==y && columna+n==x)
-                    bandera=2;
-                if (board2[filas][columna+n]->color ==piece->color && filas==y && columna+n==x)
-                    bandera=0;
-                if (filas==y && columna+n!=x)
-                    bandera=0;
+            if(x==piece->x_axis&&  y>piece->y_axis &&   y<=7){
+
+                int conto=0;
+                filas=filas+1;
+                int bandera=0;
+
+                while (bandera==0)
+                    {   
+                        if(filas>=0&&filas<=7){
+                            if (board2[filas][columna]==NULL)
+                            {
+                                filas++; 
+                                conto++;
+                            }
+                            if (board2[filas][columna]!=NULL)
+                            {
+                                bandera=1;
+                                //conto++;
+                            }
+                            
+                        
+                            
+                        }
+                        
+                        if(filas ==8)bandera=1;
+                    }
+                int max_idx_y=piece->x_axis+conto;
+                  printf("el contador de la torre fue %i\n",conto);
+                  printf("filas %i\n",filas);
+                  int ret2=0;
+                    if (board2[max_idx_y+1][columna]!=NULL){
+                       puts("entro al ret2\n"); 
+                        ret2=conto+1;
+                        int h=ret2;
+                        ret2=piece->y_axis+h;
+                        printf("%i ret2\n",ret2);
+                        }
+                    printf("max indx %i\n",max_idx_y);
+                    if(x==piece->x_axis && y<=max_idx_y)return 1;
+
+                    if(board2[ret2][x]!=NULL){
+                        puts("entro al 2");
+                         if(x==piece->x_axis && y==ret2  && board2[ret2][x]->color!=piece->color)return 2;
+                         else
+                         {
+                             return 0;
+                         }
+                         
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                    
+
+                        
+                
+
+
             }
-            else if (filas>y && columna==x) {//Arriba
-                n = 1;
-                while (board2[filas - n][columna] == NULL && filas - n >= 0 ) {
-                    bandera = 1;
-                    n++;
-                }
-                if (board2[filas - n][columna]->color != piece->color && filas - n == y && columna== x)
-                    bandera = 2;
-                if (board2[filas - n][columna + n]->color == piece->color && filas - n == y && columna== x)
-                    bandera = 0;
-                if (filas-n!=y && columna==x)
-                    bandera=0;
+
+
+
+
+
+            if(y==piece->y_axis&&  x<piece->x_axis &&   x<=7){
+                puts("entro a la indicadada");
+
+                    int conto=0;
+                    int bandera =0;
+                    columna=columna-1;
+
+                    while (bandera==0)
+                    {   
+                        if(columna>=0){
+                            if (board2[filas][columna]==NULL)
+                            {
+                                columna--; 
+                                conto++;
+                            }
+                            if (board2[filas][columna]!=NULL)
+                            {
+                                bandera=1;
+                                
+                            }
+                           
+                            
+                        }
+                        
+                        if(columna ==-1)bandera=1;
+                    }
+                    int max_idx_x=piece->x_axis-conto;
+                    int ret2=0;
+                    printf("el contador de la torre fue %i\n",conto);
+                    printf("columna %i\n",columna);
+              
+                    if (board2[filas][columna]!=NULL){
+                            puts("entro al ret2\n"); 
+                                ret2=columna-1;
+                                printf("%i ret2\n",ret2);
+                                }
+                    printf("max indx %i\n",max_idx_x);
+                    if(y==piece->y_axis && x>=max_idx_x)return 1;
+                                
+
+                     if(board2[y][ret2]!=NULL){
+                        puts("entro al 2");
+                         if(y==piece->y_axis && x==ret2  && board2[y][ret2]->color!=piece->color)return 2;
+                         else
+                         {
+                             return 0;
+                         }
+                         
+                    }
+                     else
+                    {
+                        return 0;
+                    }
+
+
+
+
+
+
             }
-            else if (filas<y && columna== x)//Abajo
-            {
-                n = 1;
-                while (board2[filas + n][columna] == NULL && filas + n <= 7 ) {
-                    bandera = 1;
-                    n++;
-                }
-                if (board2[filas + n][columna]->color != piece->color && filas + n == y && columna == x)
-                    bandera = 2;
-                if (board2[filas + n][columna]->color == piece->color && filas + n == y && columna== x)
-                    bandera = 0;
-                if (filas+n!=y && columna==x)
-                    bandera=0;
-            }
-            else
-            {
-                puts("Eso es ilegal");
-                bandera=0;
-            }
-            return bandera;
-        }
+
+
+
+
+
+
+                    if(y==piece->y_axis&&  x>piece->x_axis && x<=7){
+                                puts("entro a la indicadada2");
+
+                                    int conto=0;
+                                    int bandera =0;
+                                    columna=columna+1;
+
+                                    while (bandera==0)
+                                    {   
+                                        if(columna>=0 &&columna<=7){
+                                            if (board2[filas][columna]==NULL)
+                                            {
+                                                columna++; 
+                                                conto++;
+                                            }
+                                            if (board2[filas][columna]!=NULL)
+                                            {
+                                                bandera=1;
+                                                
+                                            }
+                                            
+                                            
+                                        }
+                                        
+                                        if(columna ==8)bandera=1;
+                                    }
+                                    int max_idx_x=piece->x_axis+conto;
+                                    int ret2=0;
+                                    printf("el contador de la torre fue %i\n",conto);
+                                    printf("columna %i\n",columna);
+
+                                    if (board2[filas][columna]!=NULL){
+                                            puts("entro al ret2\n"); 
+                                                ret2=columna;
+                                                printf("%i ret2\n",ret2);
+                                                }
+                                    printf("max indx %i\n",max_idx_x);
+                                    if(y==piece->y_axis && x<=max_idx_x)return 1;
+                                                
+
+                                    if(board2[y][ret2]!=NULL){
+                                        puts("entro al 2");
+                                        if(y==piece->y_axis && x==ret2  && board2[y][ret2]->color!=piece->color)return 2;
+                                        else
+                                        {
+                                            return 0;
+                                        }
+                                        
+                                    }
+                                    else
+                                    {
+                                        return 0;
+                                    }
+
+
+
+
+
+
+                            }
+                            else
+                            {
+                                return 0;
+                            }
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -292,6 +569,22 @@ if(piece->piece_type=='P'){
 
 }
 
+void is_king_safe(struct piece ***board2,struct gamestate * game, int opt){
+
+int count=0;
+        if(opt==1){
+            while (count<16||game->Negras[count]!=NULL)
+            {
+
+                count++;
+                /* code */
+            }
+            
+
+
+
+
+        }
 
 
 
@@ -300,7 +593,15 @@ if(piece->piece_type=='P'){
 
 
 
-void print_board(struct piece ***board2){
+    
+}
+
+
+
+
+
+
+void print_board(struct piece ***board2 ){
     
  for (int a=0; a<9; a++){
   
@@ -308,18 +609,33 @@ void print_board(struct piece ***board2){
       printf("%iY",a );
     for(int b=0; b<8; b++){
         
-        
+        if (a<8){
        
         if(board2[a][b]==NULL&&a<8){
 
             printf(" X- ");
         }
-        else  if(a<8)
-        {
-                    printf(" %c- ",board2[a][b]->piece_type);
+        else  if(a<8&&board2[a][b]!=NULL){
+        
+            printf(" %c- ",board2[a][b]->piece_type);   
+            
+                    
+            
+            }
+                    
+                    
+            
+                    
+                    
+    
+                    
+                    
 
+       
+        
         }
-        else if(a==8)
+
+        if(a==8)
         {
                 printf(" X%i " ,b);
             
