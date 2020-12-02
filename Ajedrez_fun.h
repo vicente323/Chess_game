@@ -39,6 +39,8 @@ int alfil(struct piece * piece, int x, int y, struct piece *** board2);
 int torre(struct piece * piece, int x ,int y,struct piece ***board2);
 int king(struct piece * piece, int x ,int y,struct piece ***board2);
 
+int Reyna(struct piece * piece, int x ,int y,struct piece ***board2);
+
 void piece_count(struct piece ***board2,struct gamestate * game);
 #endif
 

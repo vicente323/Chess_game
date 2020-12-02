@@ -35,7 +35,7 @@ for(int x=0; x<8; x++){
             if(board2[x][y]->color=='B'){
 
 
-                game->blancas[n]=board2[x][y];
+                game->Negras[n]=board2[x][y];
                 n++;
 
             }
@@ -64,7 +64,7 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
     struct piece * help;
 
     if(result==1){
-
+            board2[y][x]->mvs++;
             help=board2[y][x];
             board2[ny][nx]=help;
             board2[ny][nx]->x_axis=nx;
@@ -74,6 +74,7 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
 
     }
     if (result==2){
+           board2[y][x]->mvs++;
            help=board2[ny][nx];
            board2[ny][nx]=board2[y][x];
            board2[ny][nx]->x_axis=nx;
@@ -90,23 +91,24 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
 
  int Torre(struct piece * piece, int x, int y, struct piece *** board2){
 
-            int filas=piece->y_axis;
-            int columna=piece->x_axis;
-
+            int filasT=piece->y_axis;
+            int columnaT=piece->x_axis;
+         
             if(x==piece->x_axis&&  y<piece->y_axis &&   y<=7){
+             
                 int conto=0;
-                filas=filas-1;
+                filasT=filasT-1;
                 int bandera=0;
 
                 while (bandera==0)
                     {   
-                        if(filas>=0){
-                            if (board2[filas][columna]==NULL)
+                        if(filasT>=0){
+                            if (board2[filasT][columnaT]==NULL)
                             {
-                                filas--; 
+                                filasT--; 
                                 conto++;
                             }
-                            if (board2[filas][columna]!=NULL)
+                            if (board2[filasT][columnaT]!=NULL)
                             {
                                 bandera=1;
                                 //conto++;
@@ -115,26 +117,25 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
                             
                         }
                         
-                        if(filas == -1)bandera=1;
+                        if(filasT == -1)bandera=1;
                     }
                     int max_idx_y=piece->y_axis-conto;
-                    printf("el contador de la torre fue %i\n",conto);
-                    printf("filas %i\n",filas);
+                   
                     int ret2=0;
-                    if (board2[max_idx_y-1][columna]!=NULL){
-                       puts("entro al ret2\n"); 
+                    if (board2[max_idx_y-1][columnaT]!=NULL){
+                       
                         ret2=conto+1;
                         int h=ret2;
                         ret2=piece->y_axis-h;
-                        printf("%i ret2\n",ret2);
+                        
                         }
 
                    
 
-                    printf("max indx %i\n",max_idx_y);
+                    
                     if(x==piece->x_axis && y>=max_idx_y)return 1;
                     if(board2[ret2][x]!=NULL){
-                        puts("entro al 2");
+                        
                          if(x==piece->x_axis && y==ret2  && board2[ret2][x]->color!=piece->color)return 2;
                          else
                          {
@@ -155,20 +156,21 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
 
             }
             if(x==piece->x_axis&&  y>piece->y_axis &&   y<=7){
+                
 
                 int conto=0;
-                filas=filas+1;
+                filasT=filasT+1;
                 int bandera=0;
 
                 while (bandera==0)
                     {   
-                        if(filas>=0&&filas<=7){
-                            if (board2[filas][columna]==NULL)
+                        if(filasT>=0&&filasT<=7){
+                            if (board2[filasT][columnaT]==NULL)
                             {
-                                filas++; 
+                                filasT++; 
                                 conto++;
                             }
-                            if (board2[filas][columna]!=NULL)
+                            if (board2[filasT][columnaT]!=NULL)
                             {
                                 bandera=1;
                                 //conto++;
@@ -178,24 +180,23 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
                             
                         }
                         
-                        if(filas ==8)bandera=1;
+                        if(filasT ==8)bandera=1;
                     }
                 int max_idx_y=piece->x_axis+conto;
-                  printf("el contador de la torre fue %i\n",conto);
-                  printf("filas %i\n",filas);
+                  
                   int ret2=0;
-                    if (board2[max_idx_y+1][columna]!=NULL){
-                       puts("entro al ret2\n"); 
-                        ret2=conto+1;
-                        int h=ret2;
-                        ret2=piece->y_axis+h;
-                        printf("%i ret2\n",ret2);
+                    if (board2[max_idx_y+1][columnaT]!=NULL){
+                      
+                        
+                        ret2=max_idx_y+1;
+                      
                         }
-                    printf("max indx %i\n",max_idx_y);
+                     
+                   
                     if(x==piece->x_axis && y<=max_idx_y)return 1;
 
                     if(board2[ret2][x]!=NULL){
-                        puts("entro al 2");
+                       
                          if(x==piece->x_axis && y==ret2  && board2[ret2][x]->color!=piece->color)return 2;
                          else
                          {
@@ -220,21 +221,21 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
 
 
             if(y==piece->y_axis&&  x<piece->x_axis &&   x<=7){
-                puts("entro a la indicadada");
+              
 
                     int conto=0;
                     int bandera =0;
-                    columna=columna-1;
+                    columnaT=columnaT-1;
 
                     while (bandera==0)
                     {   
-                        if(columna>=0){
-                            if (board2[filas][columna]==NULL)
+                        if(columnaT>=0){
+                            if (board2[filasT][columnaT]==NULL)
                             {
-                                columna--; 
+                                columnaT--; 
                                 conto++;
                             }
-                            if (board2[filas][columna]!=NULL)
+                            if (board2[filasT][columnaT]!=NULL)
                             {
                                 bandera=1;
                                 
@@ -243,24 +244,23 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
                             
                         }
                         
-                        if(columna ==-1)bandera=1;
+                        if(columnaT ==-1)bandera=1;
                     }
                     int max_idx_x=piece->x_axis-conto;
                     int ret2=0;
-                    printf("el contador de la torre fue %i\n",conto);
-                    printf("columna %i\n",columna);
+                   
               
-                    if (board2[filas][columna]!=NULL){
-                            puts("entro al ret2\n"); 
-                                ret2=columna-1;
-                                printf("%i ret2\n",ret2);
+                    if (board2[filasT][columnaT]!=NULL){
+                           
+                                ret2=columnaT-1;
+                                
                                 }
-                    printf("max indx %i\n",max_idx_x);
+                   
                     if(y==piece->y_axis && x>=max_idx_x)return 1;
                                 
 
                      if(board2[y][ret2]!=NULL){
-                        puts("entro al 2");
+                       
                          if(y==piece->y_axis && x==ret2  && board2[y][ret2]->color!=piece->color)return 2;
                          else
                          {
@@ -286,21 +286,21 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
 
 
                     if(y==piece->y_axis&&  x>piece->x_axis && x<=7){
-                                puts("entro a la indicadada2");
+                           
 
                                     int conto=0;
                                     int bandera =0;
-                                    columna=columna+1;
+                                    columnaT=columnaT+1;
 
                                     while (bandera==0)
                                     {   
-                                        if(columna>=0 &&columna<=7){
-                                            if (board2[filas][columna]==NULL)
+                                        if(columnaT>=0 &&columnaT<=7){
+                                            if (board2[filasT][columnaT]==NULL)
                                             {
-                                                columna++; 
+                                                columnaT++; 
                                                 conto++;
                                             }
-                                            if (board2[filas][columna]!=NULL)
+                                            if (board2[filasT][columnaT]!=NULL)
                                             {
                                                 bandera=1;
                                                 
@@ -309,24 +309,19 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
                                             
                                         }
                                         
-                                        if(columna ==8)bandera=1;
+                                        if(columnaT ==8)bandera=1;
                                     }
                                     int max_idx_x=piece->x_axis+conto;
                                     int ret2=0;
-                                    printf("el contador de la torre fue %i\n",conto);
-                                    printf("columna %i\n",columna);
+                                  
 
-                                    if (board2[filas][columna]!=NULL){
-                                            puts("entro al ret2\n"); 
-                                                ret2=columna;
-                                                printf("%i ret2\n",ret2);
+                                    if (board2[filasT][columnaT]!=NULL){
+                                                ret2=columnaT;
                                                 }
-                                    printf("max indx %i\n",max_idx_x);
                                     if(y==piece->y_axis && x<=max_idx_x)return 1;
                                                 
 
                                     if(board2[y][ret2]!=NULL){
-                                        puts("entro al 2");
                                         if(y==piece->y_axis && x==ret2  && board2[y][ret2]->color!=piece->color)return 2;
                                         else
                                         {
@@ -391,6 +386,258 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
 
 
 
+int Reyna(struct piece * piece, int x ,int y,struct piece ***board2){
+
+
+          int filasT=piece->y_axis;
+            int columnaT=piece->x_axis;
+         
+            if(x==piece->x_axis&&  y<piece->y_axis &&   y<=7){
+             
+                int conto=0;
+                filasT=filasT-1;
+                int bandera=0;
+
+                while (bandera==0)
+                    {   
+                        if(filasT>=0){
+                            if (board2[filasT][columnaT]==NULL)
+                            {
+                                filasT--; 
+                                conto++;
+                            }
+                            if (board2[filasT][columnaT]!=NULL)
+                            {
+                                bandera=1;
+                                //conto++;
+                            }
+                        
+                            
+                        }
+                        
+                        if(filasT == -1)bandera=1;
+                    }
+                    int max_idx_y=piece->y_axis-conto;
+                   
+                    int ret2=0;
+                    if (board2[max_idx_y-1][columnaT]!=NULL){
+                       
+                        ret2=conto+1;
+                        int h=ret2;
+                        ret2=piece->y_axis-h;
+                        
+                        }
+
+                   
+
+                    
+                    if(x==piece->x_axis && y>=max_idx_y)return 1;
+                    if(board2[ret2][x]!=NULL){
+                        
+                         if(x==piece->x_axis && y==ret2  && board2[ret2][x]->color!=piece->color)return 2;
+                         else
+                         {
+                             return 0;
+                         }
+                         
+                    }
+                   
+                    else
+                    {
+                        return 0;
+                    }
+                    
+
+
+                
+
+
+            }
+            if(x==piece->x_axis&&  y>piece->y_axis &&   y<=7){
+                
+
+                int conto=0;
+                filasT=filasT+1;
+                int bandera=0;
+
+                while (bandera==0)
+                    {   
+                        if(filasT>=0&&filasT<=7){
+                            if (board2[filasT][columnaT]==NULL)
+                            {
+                                filasT++; 
+                                conto++;
+                            }
+                            if (board2[filasT][columnaT]!=NULL)
+                            {
+                                bandera=1;
+                                //conto++;
+                            }
+                            
+                        
+                            
+                        }
+                        
+                        if(filasT ==8)bandera=1;
+                    }
+                int max_idx_y=piece->x_axis+conto;
+                  
+                  int ret2=0;
+                    if (board2[max_idx_y+1][columnaT]!=NULL){
+                      
+                        
+                        ret2=max_idx_y+1;
+                      
+                        }
+                     
+                   
+                    if(x==piece->x_axis && y<=max_idx_y)return 1;
+
+                    if(board2[ret2][x]!=NULL){
+                       
+                         if(x==piece->x_axis && y==ret2  && board2[ret2][x]->color!=piece->color)return 2;
+                         else
+                         {
+                             return 0;
+                         }
+                         
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                    
+
+                        
+                
+
+
+            }
+
+
+
+
+
+            if(y==piece->y_axis&&  x<piece->x_axis &&   x<=7){
+              
+
+                    int conto=0;
+                    int bandera =0;
+                    columnaT=columnaT-1;
+
+                    while (bandera==0)
+                    {   
+                        if(columnaT>=0){
+                            if (board2[filasT][columnaT]==NULL)
+                            {
+                                columnaT--; 
+                                conto++;
+                            }
+                            if (board2[filasT][columnaT]!=NULL)
+                            {
+                                bandera=1;
+                                
+                            }
+                           
+                            
+                        }
+                        
+                        if(columnaT ==-1)bandera=1;
+                    }
+                    int max_idx_x=piece->x_axis-conto;
+                    int ret2=0;
+                   
+              
+                    if (board2[filasT][columnaT]!=NULL){
+                           
+                                ret2=columnaT-1;
+                                
+                                }
+                   
+                    if(y==piece->y_axis && x>=max_idx_x)return 1;
+                                
+
+                     if(board2[y][ret2]!=NULL){
+                       
+                         if(y==piece->y_axis && x==ret2  && board2[y][ret2]->color!=piece->color)return 2;
+                         else
+                         {
+                             return 0;
+                         }
+                         
+                    }
+                     else
+                    {
+                        return 0;
+                    }
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+                    if(y==piece->y_axis&&  x>piece->x_axis && x<=7){
+                           
+
+                                    int conto=0;
+                                    int bandera =0;
+                                    columnaT=columnaT+1;
+
+                                    while (bandera==0)
+                                    {   
+                                        if(columnaT>=0 &&columnaT<=7){
+                                            if (board2[filasT][columnaT]==NULL)
+                                            {
+                                                columnaT++; 
+                                                conto++;
+                                            }
+                                            if (board2[filasT][columnaT]!=NULL)
+                                            {
+                                                bandera=1;
+                                                
+                                            }
+                                            
+                                            
+                                        }
+                                        
+                                        if(columnaT ==8)bandera=1;
+                                    }
+                                    int max_idx_x=piece->x_axis+conto;
+                                    int ret2=0;
+                                  
+
+                                    if (board2[filasT][columnaT]!=NULL){
+                                                ret2=columnaT;
+                                                }
+                                    if(y==piece->y_axis && x<=max_idx_x)return 1;
+                                                
+
+                                    if(board2[y][ret2]!=NULL){
+                                        if(y==piece->y_axis && x==ret2  && board2[y][ret2]->color!=piece->color)return 2;
+                                        else
+                                        {
+                                            return 0;
+                                        }
+                                        
+                                    }
+                                    else
+                                    {
+                                        return 0;
+                                    }
+
+
+
+
+
+
+                            }
 
 
 
@@ -414,82 +661,750 @@ void swap(struct piece ***board2,int y, int x, int ny, int nx, int result ){
 
 
 
-int alfil(struct piece * piece, int x, int y, struct piece *** board2)
-        {
-    int filas=piece->y_axis;
-    int columna=piece->x_axis;
-    int bandera;
-    int n;//Variable que ayuda a los movimientos
-    if (filas==y && columna==x){//Movimiento en la misma posicion
-        return  0;
-    }
-    //Movimiento general el alfil
-    if (filas>y && columna<x)//Diagonal superior derecha
-    {
-        n=1;
-       while (board2[filas-n][columna+n]==NULL && filas-n>=0 && columna+n<=7)
-       {
-           bandera=1;
-           n++;
-       }
-       if (board2[filas-n][columna+n]->color !=piece->color && filas-n==y && columna+n==x){
-           bandera=2;}
-       if (board2[filas-n][columna+n]->color ==piece->color && filas-n==y && columna+n==x){
-            bandera=0;}
-       /* if (filas-n!=y && columna+n !=x)
-            bandera=0;*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          if(piece->x_axis<x && piece->y_axis>y){
+                
+                puts("entro al if derecha up");
+
+            int bandera=0;
+            int filas=piece->y_axis-1;
+            int columna=piece->x_axis+1;
+            int conto=0;
+            while (bandera==0){
+                    
+
+                    if(filas>=0 &&columna<=7){
+                      
+                                printf("cont:%i\n",conto);
+                                if (board2[filas][columna]==NULL){
+                                        columna++; 
+                                        filas--;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==8 || filas==-1)bandera=1;
+
+            }
+            printf("filas:%i\n",filas);
+            printf("columnas:%i\n",columna);
+            int max_dx_y=piece->y_axis-conto;
+            int max_dx_x=piece->x_axis+conto;
+            printf("max idx y %i\n",max_dx_y);
+            printf("max idx x %i\n",max_dx_x);
+            int ret2x=0;
+            int ret2y=0;
+            if(max_dx_x<7 && max_dx_y>0){
+                if(board2[max_dx_y-1][max_dx_x+1]!=NULL){
+                    ret2x=max_dx_x+1;
+                    ret2y=max_dx_y-1;
+                }
+            }
+            printf("rety %i\n",ret2y);
+            printf("retx %i\n",ret2x);
+            if(x<=max_dx_x && y>=max_dx_y)return 1;
+
+            if (board2[ret2y][ret2x]!=NULL)
+            {   
+                if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                else
+                {
+                    return 0;
+                }
+                
+               
+            }
+            else
+            {
+                return 0;
+            }
+            
         
-    }
-    else if (filas>y && columna>x)//Diagonal superior izquierda
-    {
-        n=1;
-        while (board2[filas-n][columna-n]==NULL && filas-n>=0 && columna-n>=0)
-        {
-            bandera=1;
-            n++;
+            
+
+        
         }
-        if (board2[filas-n][columna-n]->color !=piece->color && filas-n==y && columna-n==x)
-            bandera=2;
-        if (board2[filas-n][columna-n]->color ==piece->color && filas-n==y && columna-n==x)
-            bandera=0;
-       /* if (filas-n!=y && columna-n !=x)
-            bandera=0;*/
-    }
-    else if (filas<y && columna<x) {//Diagonal inferior derecha
-        n = 1;
-        while (board2[filas + n][columna + n] == NULL && filas + n <= 7 && columna + n <= 7) {
-            bandera = 1;
-            n++;
-        }
-        if (board2[filas + n][columna + n]->color != piece->color && filas + n == y && columna + n == x)
-            bandera = 2;
-        if (board2[filas + n][columna + n]->color == piece->color && filas + n == y && columna + n == x)
-            bandera = 0;
-       /* if (filas+n!=y && columna+n !=x)
-            bandera=0;*/
-    }
-    else if (filas<y && columna>x)//Diagonal inferior izqu
-    {
-        n = 1;
-        while (board2[filas + n][columna - n] == NULL && filas + n <= 7 && columna + n >=0) {
-            bandera = 1;
-            n++;
-        }
-        if (board2[filas + n][columna - n]->color != piece->color && filas + n == y && columna - n == x)
-            bandera = 2;
-        if (board2[filas + n][columna - n]->color == piece->color && filas + n == y && columna - n == x)
-            bandera = 0;
-       /* if (filas+n!=y && columna-n !=x)
-            bandera=0;*/
-    }
-    else
-        {
-        puts("Eso es ilegal");
-        bandera=0;
+        if(piece->y_axis<y && piece->x_axis<x){
+            puts("entro a la derecha para abajo");
+            int bandera=0;
+            int filas=piece->y_axis+1;
+            int columna=piece->x_axis+1;
+            int conto=0;
+            
+            while (bandera==0){
+                    
+
+                    if(filas<=7 &&columna<=7){
+                      
+                                //printf("cont:%i\n",conto);
+                                if (board2[filas][columna]==NULL){
+                                        columna++; 
+                                        filas++;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==8 || filas==8)bandera=1;
+
+            }
+
+            printf("filas:%i\n",filas);
+            printf("columnas:%i\n",columna);
+            int max_dx_y=piece->y_axis+conto;
+            int max_dx_x=piece->x_axis+conto;
+            printf("max idx y %i\n",max_dx_y);
+            printf("max idx x %i\n",max_dx_x);
+            int ret2x=0;
+            int ret2y=0;
+
+            if(max_dx_y<7 && max_dx_x<7){
+                if (board2[max_dx_y+1][max_dx_x+1]!=NULL)
+                {
+                    ret2x=max_dx_x+1;
+                    ret2y=max_dx_y+1;
+                }
+                
+            }
+            printf("rety %i\n",ret2y);
+            printf("retx %i\n",ret2x);
+            if(x<=max_dx_x && x>0 && y<=max_dx_y &&y>0)return 1;
+            if (board2[ret2y][ret2x]!=NULL){
+                if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                else
+                {
+                    return 0;
+                }
+
+            }
+
+
         }
 
-    return bandera;
+        if (x<piece->x_axis && y>piece->y_axis )
+        {
+                puts("entro  a la izquierda abajo");
+                int bandera=0;
+                int filas=piece->y_axis+1;
+                int columna=piece->x_axis-1;
+                int conto=0;
+                while (bandera==0){
+               
+
+                    if(filas<=7 &&columna>=0){
+                        
+                      
+                                if (board2[filas][columna]==NULL){
+                                        columna--; 
+                                        filas++;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                    printf("Encontre algo no Null\n");
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==8|| filas==-1)bandera=1;
+
+                 }
+
+
+                 printf("filas:%i\n",filas);
+                 printf("columnas:%i\n",columna);
+                 int max_dx_y=piece->y_axis+conto;
+                 int max_dx_x=piece->x_axis-conto;
+                 int ret2x=0;
+                 int ret2y=0;
+                 if(max_dx_y<7 && max_dx_x>0){
+                    if (board2[max_dx_y+1][max_dx_x-1]!=NULL)
+                    {
+                        ret2x=max_dx_x-1;
+                        ret2y=max_dx_y+1;
+                    }
+                
+                 }
+                 printf("rety %i\n",ret2y);
+                 printf("retx %i\n",ret2x);
+                 printf("max idx x %i\n",max_dx_x);
+                 printf("max idx y %i\n",max_dx_y);
+                 printf("contador %i\n",conto);
+
+                 if(x>=max_dx_x && y<=max_dx_y )return 1;
+                 if (board2[ret2y][ret2x]!=NULL){
+
+                        if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                        else
+                        {
+                            return 0;
+                        }
+
+
+                 }
+                 else
+                 {
+                     return 0;
+                 }
+                 
+                    
+
+
+
+
+
+
+
+
+
         }
+        if (x<piece->x_axis && y<piece->y_axis)
+        {       puts("entro  a la izquierda arriba");
+                int bandera=0;
+                int filas=piece->y_axis-1;
+                int columna=piece->x_axis-1;
+                int conto=0;
+
+
+
+
+                while (bandera==0){
+               
+
+                    if(filas>=0 &&columna>=0){
+                        
+                      
+                                if (board2[filas][columna]==NULL){
+                                        columna--; 
+                                        filas--;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                    printf("Encontre algo no Null\n");
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==-1|| filas==-1)bandera=1;
+
+                 }
+                 printf("filas:%i\n",filas);
+                 printf("columnas:%i\n",columna);
+                 int max_dx_y=piece->y_axis-conto;
+                 int max_dx_x=piece->x_axis-conto;
+                 int ret2x=0;
+                 int ret2y=0;
+                 if(max_dx_y>0 && max_dx_x>0){
+                    if (board2[max_dx_y-1][max_dx_x-1]!=NULL)
+                    {
+                        ret2x=max_dx_x-1;
+                        ret2y=max_dx_y-1;
+                    }
+                
+                 }
+                 printf("rety %i\n",ret2y);
+                 printf("retx %i\n",ret2x);
+                 printf("max idx x %i\n",max_dx_x);
+                 printf("max idx y %i\n",max_dx_y);
+                 printf("contador %i\n",conto);
+                 if(x>=max_dx_x && y>=max_dx_y )return 1;
+                 if (board2[ret2y][ret2x]!=NULL){
+
+                        if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                        else
+                        {
+                            return 0;
+                        }
+
+
+                 }
+                else
+                {
+                    return 0;
+                }
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+        
+
+
+        else
+        {
+            return 0;
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int alfil(struct piece * piece, int x, int y, struct piece *** board2){
+    
+        if(piece->x_axis<x && piece->y_axis>y){
+                
+                puts("entro al if derecha up");
+
+            int bandera=0;
+            int filas=piece->y_axis-1;
+            int columna=piece->x_axis+1;
+            int conto=0;
+            while (bandera==0){
+                    
+
+                    if(filas>=0 &&columna<=7){
+                      
+                                printf("cont:%i\n",conto);
+                                if (board2[filas][columna]==NULL){
+                                        columna++; 
+                                        filas--;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==8 || filas==-1)bandera=1;
+
+            }
+            printf("filas:%i\n",filas);
+            printf("columnas:%i\n",columna);
+            int max_dx_y=piece->y_axis-conto;
+            int max_dx_x=piece->x_axis+conto;
+            printf("max idx y %i\n",max_dx_y);
+            printf("max idx x %i\n",max_dx_x);
+            int ret2x=0;
+            int ret2y=0;
+            if(max_dx_x<7 && max_dx_y>0){
+                if(board2[max_dx_y-1][max_dx_x+1]!=NULL){
+                    ret2x=max_dx_x+1;
+                    ret2y=max_dx_y-1;
+                }
+            }
+            printf("rety %i\n",ret2y);
+            printf("retx %i\n",ret2x);
+            if(x<=max_dx_x && y>=max_dx_y)return 1;
+
+            if (board2[ret2y][ret2x]!=NULL)
+            {   
+                if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                else
+                {
+                    return 0;
+                }
+                
+               
+            }
+            else
+            {
+                return 0;
+            }
+            
+        
+            
+
+        
+        }
+        if(piece->y_axis<y && piece->x_axis<x){
+            puts("entro a la derecha para abajo");
+            int bandera=0;
+            int filas=piece->y_axis+1;
+            int columna=piece->x_axis+1;
+            int conto=0;
+            
+            while (bandera==0){
+                    
+
+                    if(filas<=7 &&columna<=7){
+                      
+                                //printf("cont:%i\n",conto);
+                                if (board2[filas][columna]==NULL){
+                                        columna++; 
+                                        filas++;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==8 || filas==8)bandera=1;
+
+            }
+
+            printf("filas:%i\n",filas);
+            printf("columnas:%i\n",columna);
+            int max_dx_y=piece->y_axis+conto;
+            int max_dx_x=piece->x_axis+conto;
+            printf("max idx y %i\n",max_dx_y);
+            printf("max idx x %i\n",max_dx_x);
+            int ret2x=0;
+            int ret2y=0;
+
+            if(max_dx_y<7 && max_dx_x<7){
+                if (board2[max_dx_y+1][max_dx_x+1]!=NULL)
+                {
+                    ret2x=max_dx_x+1;
+                    ret2y=max_dx_y+1;
+                }
+                
+            }
+            printf("rety %i\n",ret2y);
+            printf("retx %i\n",ret2x);
+            if(x<=max_dx_x && x>0 && y<=max_dx_y &&y>0)return 1;
+            if (board2[ret2y][ret2x]!=NULL){
+                if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                else
+                {
+                    return 0;
+                }
+
+            }
+
+
+        }
+
+        if (x<piece->x_axis && y>piece->y_axis )
+        {
+                puts("entro  a la izquierda abajo");
+                int bandera=0;
+                int filas=piece->y_axis+1;
+                int columna=piece->x_axis-1;
+                int conto=0;
+                while (bandera==0){
+               
+
+                    if(filas<=7 &&columna>=0){
+                        
+                      
+                                if (board2[filas][columna]==NULL){
+                                        columna--; 
+                                        filas++;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                    printf("Encontre algo no Null\n");
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==8|| filas==-1)bandera=1;
+
+                 }
+
+
+                 printf("filas:%i\n",filas);
+                 printf("columnas:%i\n",columna);
+                 int max_dx_y=piece->y_axis+conto;
+                 int max_dx_x=piece->x_axis-conto;
+                 int ret2x=0;
+                 int ret2y=0;
+                 if(max_dx_y<7 && max_dx_x>0){
+                    if (board2[max_dx_y+1][max_dx_x-1]!=NULL)
+                    {
+                        ret2x=max_dx_x-1;
+                        ret2y=max_dx_y+1;
+                    }
+                
+                 }
+                 printf("rety %i\n",ret2y);
+                 printf("retx %i\n",ret2x);
+                 printf("max idx x %i\n",max_dx_x);
+                 printf("max idx y %i\n",max_dx_y);
+                 printf("contador %i\n",conto);
+
+                 if(x>=max_dx_x && y<=max_dx_y )return 1;
+                 if (board2[ret2y][ret2x]!=NULL){
+
+                        if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                        else
+                        {
+                            return 0;
+                        }
+
+
+                 }
+                 else
+                 {
+                     return 0;
+                 }
+                 
+                    
+
+
+
+
+
+
+
+
+
+        }
+        if (x<piece->x_axis && y<piece->y_axis)
+        {       puts("entro  a la izquierda arriba");
+                int bandera=0;
+                int filas=piece->y_axis-1;
+                int columna=piece->x_axis-1;
+                int conto=0;
+
+
+
+
+                while (bandera==0){
+               
+
+                    if(filas>=0 &&columna>=0){
+                        
+                      
+                                if (board2[filas][columna]==NULL){
+                                        columna--; 
+                                        filas--;
+                                        conto++;
+                                            }
+                                if (board2[filas][columna]!=NULL){
+                                    printf("Encontre algo no Null\n");
+                                            bandera=1;
+                                                            
+                                            }
+                                                        
+                                                        
+                                }
+                            
+                    if(columna==-1|| filas==-1)bandera=1;
+
+                 }
+                 printf("filas:%i\n",filas);
+                 printf("columnas:%i\n",columna);
+                 int max_dx_y=piece->y_axis-conto;
+                 int max_dx_x=piece->x_axis-conto;
+                 int ret2x=0;
+                 int ret2y=0;
+                 if(max_dx_y>0 && max_dx_x>0){
+                    if (board2[max_dx_y-1][max_dx_x-1]!=NULL)
+                    {
+                        ret2x=max_dx_x-1;
+                        ret2y=max_dx_y-1;
+                    }
+                
+                 }
+                 printf("rety %i\n",ret2y);
+                 printf("retx %i\n",ret2x);
+                 printf("max idx x %i\n",max_dx_x);
+                 printf("max idx y %i\n",max_dx_y);
+                 printf("contador %i\n",conto);
+                 if(x>=max_dx_x && y>=max_dx_y )return 1;
+                 if (board2[ret2y][ret2x]!=NULL){
+
+                        if (x==ret2x&&y==ret2y&& board2[ret2y][ret2x]->color!=piece->color)return 2;
+                        else
+                        {
+                            return 0;
+                        }
+
+
+                 }
+                else
+                {
+                    return 0;
+                }
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+        
+
+
+        else
+        {
+            return 0;
+        }
+        
+
+
+
+
+
+
+ }
 
 
 
@@ -713,7 +1628,7 @@ int White_Pawn(struct piece * piece, int x ,int y,struct piece ***board2){
 
 int caballo(struct piece * piece, int x ,int y,struct piece ***board2){
     
-        if(piece->piece_type=='c'){
+        if(piece->piece_type=='c'|| piece->piece_type=='C'){
               
                 printf("la pieza es un c\n");
             if(x>7 ||x<0 || y>7|| y<0)return 0;  
@@ -841,7 +1756,7 @@ int caballo(struct piece * piece, int x ,int y,struct piece ***board2){
 
 
 int king(struct piece * piece, int x ,int y,struct piece ***board2){
-  if(piece->piece_type=='k'){
+  if(piece->piece_type=='k'|| piece->piece_type=='K'){
 
             printf("la pieza es un k\n");
             if(x>7 ||x<0 || y>7|| y<0)return 0;  

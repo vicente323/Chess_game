@@ -51,12 +51,18 @@ int result=0;
 
 board2[6][7]=NULL;
 
-board2[6][0]=NULL;
+//board2[6][0]=NULL;
+board2[6][4]=NULL;
 
-board2[0][0]=NULL;
+//board2[0][0]=NULL;
 board2[1][0]=NULL;
+board2[6][6]=NULL;
+board2[1][0]=NULL;
+board2[1][4]=NULL;
 
-board2[1][0]=NULL;
+//board2[2][7]=board2[1][1];
+
+
 
  while(new_game.turn>0){
         print_board(board2);
@@ -107,7 +113,12 @@ board2[1][0]=NULL;
                             result=king(board2[y][x],x1,y1,board2);
                             new_game.turn=2;
                         }
-
+                        if (board2[y][x]->piece_type=='r')
+                        {
+                            result=Reyna(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
+                        
 
 
 
@@ -152,6 +163,11 @@ board2[1][0]=NULL;
                             result=king(board2[y][x],x1,y1,board2);
                             new_game.turn=2;
                         }
+                        if (board2[y][x]->piece_type=='r')
+                        {
+                            result=Reyna(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
+                        }
 
 
 
@@ -182,27 +198,32 @@ board2[1][0]=NULL;
                
              if(board2[y][x]!=NULL&&board2[y][x]->color=='B'){
 
-                        if(board2[y][x]->piece_type=='p'){
-                            result= White_Pawn(board2[y][x],x1,y1,board2);
+                        if(board2[y][x]->piece_type=='P'){
+                            result= Black_Pawn(board2[y][x],x1,y1,board2);
                             
 
                         }
-                        if(board2[y][x]->piece_type=='t'){
+                        if(board2[y][x]->piece_type=='T'){
                             result=Torre(board2[y][x],x1,y1,board2);
                             
                         }
-                        if(board2[y][x]->piece_type=='c'){
+                        if(board2[y][x]->piece_type=='C'){
                             result=caballo(board2[y][x],x1,y1,board2);
                             
                         }
 
-                        if(board2[y][x]->piece_type=='a'){
+                        if(board2[y][x]->piece_type=='A'){
                             result=alfil(board2[y][x],x1,y1,board2);
                             
                         }
-                        if(board2[y][x]->piece_type=='k'){
+                        if(board2[y][x]->piece_type=='K'){
                             result=king(board2[y][x],x1,y1,board2);
                             
+                        }
+                        if (board2[y][x]->piece_type=='R')
+                        {
+                            result=Reyna(board2[y][x],x1,y1,board2);
+                            new_game.turn=2;
                         }
 
 
@@ -229,27 +250,33 @@ board2[1][0]=NULL;
                             scanf("%i",&x1);
                             if(board2[y][x]!=NULL&&board2[y][x]->color=='B'){
 
-                                    if(board2[y][x]->piece_type=='p'){
-                                        result= White_Pawn(board2[y][x],x1,y1,board2);
+                                    if(board2[y][x]->piece_type=='P'){
+                                        result= Black_Pawn(board2[y][x],x1,y1,board2);
                                        
 
                                     }
-                                    if(board2[y][x]->piece_type=='t'){
+                                    if(board2[y][x]->piece_type=='T'){
                                         result=Torre(board2[y][x],x1,y1,board2);
                                     }
-                                    if(board2[y][x]->piece_type=='c'){
+                                    if(board2[y][x]->piece_type=='C'){
                                         result=caballo(board2[y][x],x1,y1,board2);
                                         
                                     }
 
-                                    if(board2[y][x]->piece_type=='a'){
+                                    if(board2[y][x]->piece_type=='A'){
                                         result=alfil(board2[y][x],x1,y1,board2);
                                       
                                     }
-                                    if(board2[y][x]->piece_type=='k'){
+                                    if(board2[y][x]->piece_type=='K'){
                                         result=king(board2[y][x],x1,y1,board2);
                                         
                                     }
+                                    if (board2[y][x]->piece_type=='R')
+                                    {
+                                        result=Reyna(board2[y][x],x1,y1,board2);
+                                        new_game.turn=2;
+                                    }
+                                                
 
 
 
