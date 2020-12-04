@@ -1,0 +1,137 @@
+Funciones del ajedrez
+
+Este archivo describe que reciben las funciones, que es lo que regresan y en su función además también incluye
+las estrcuturas utilizadas.
+
+struct piece 
+{
+     char piece_type;
+     int  mvs;
+     char color;
+     int x_axis;
+     int y_axis; 
+
+
+    
+};
+struct gamestate{
+     int turn;
+     int haque;
+     struct piece **Negras;
+     struct piece ** blancas;
+     
+
+};
+
+Antes de ver las funciones es necesario saber que usamos dos structs la primera nos sirve para representar las piezas
+esta incluye el color, tipo, coordenadas y movimientos hechos hasta el momento.
+
+La segunda es la que nos dice el estado del juego es decir nos  indica el turno correspondiente para
+el jugador, el rey está en jaque o no y un apuntador a las piezas que se tienen en el tablero tanto negras como 
+blancas.
+
+void swap(struct piece ***board2,int y, int x, int ny, int nx, int result );
+
+Void swap recibe un triple apuntador a la piece es decir al tablero, las coordenadas iniciales de la pieza y las 
+finales que es a donde quiere ir y ek resultado que nos dice si la pieza se mueve este es 1 y si como es 2.
+Lo que hace esta función es cambiar de posición la pieza que nosotros deseamos a un punto disponible en el tablero
+y que sea un movimiento legal o comer una pieza enemiga.
+
+Esta función no regresa nada.
+
+
+
+int is_king_safe(struct piece ***board2,struct gamestate * game, int opt);
+
+La función de is king safe recibe un apuntador al tablero, un apuntador a la estructura gamestate y un entero opt que dice de quien es el turno,
+la función lo que hace es determinar si el rey no esta puesto en jaque por parte de la piezas enemigas, de manera
+que si lo esta va a cambiar en el gamestate si existe jaque o no para que después se tenga que hacer un movimiento, regresamos un 3 en caso de que el rey se encuntre en jaque
+
+
+ int Torre(struct piece * piece, int x, int y, struct piece *** board2);
+
+La función de torre recibe un apuntador a la pieza que se quiere  mover, un triple apuntador a pieza
+que es el tablero y las coordenadas de x,y a donde se quiere mover la pieza.
+
+Lo que hace la función es regresarnos un número, 1 si el movimiento de la torre es legal, 2 si el 
+movimiento de la torre hace que se pueda comer una pieza enemiga o 0 si el movimiento no es legal.
+
+
+void init_game( struct piece ***board2);
+La función de init_game recibe un apuntador a un nuevo tablero y lo que hace es solo crear este nuevo tablero en memoria dinámica 
+con todas las piezas en sus respectivas posiciones, la función no regresa nada.
+
+void print_board(struct piece ***board2);
+Esta función solo recibe un apuntador al tablero y lo que hace es solo imprime el tablero en consola, no regresa 
+nada.
+
+int White_Pawn(struct piece * piece,int x ,int y,struct piece ***board2);
+
+La función de peón blanco recibe un apuntador a la pieza que se quiere  mover, un triple apuntador a pieza
+que es el tablero y las coordenadas de x,y a donde se quiere mover la pieza.
+
+Lo que hace la función es regresarnos un número, 1 si el movimiento del peón es legal, 2 si el 
+movimiento de el peón hace que se pueda comer una pieza enemiga o 0 si el movimiento no es legal.
+
+int Black_Pawn(struct piece * piece, int x ,int y,struct piece ***board2);
+
+La función de peón negro recibe un apuntador a la pieza que se quiere  mover, un triple apuntador a pieza
+que es el tablero y las coordenadas de x,y a donde se quiere mover la pieza.
+
+Lo que hace la función es regresarnos un número, 1 si el movimiento del peón es legal, 2 si el 
+movimiento de el peón hace que se pueda comer una pieza enemiga o 0 si el movimiento no es legal.
+
+int caballo(struct piece * piece, int x ,int y,struct piece ***board2);
+
+La función de caballo recibe un apuntador a la pieza que se quiere  mover, un triple apuntador a pieza
+que es el tablero y las coordenadas de x,y a donde se quiere mover la pieza.
+
+Lo que hace la función es regresarnos un número, 1 si el movimiento del caballo es legal, 2 si el 
+movimiento del caballo hace que se pueda comer una pieza enemiga o 0 si el movimiento no es legal.
+
+
+int alfil(struct piece * piece, int x, int y, struct piece *** board2);
+
+La función de alfil recibe un apuntador a la pieza que se quiere  mover, un triple apuntador a pieza
+que es el tablero y las coordenadas de x,y a donde se quiere mover la pieza.
+
+Lo que hace la función es regresarnos un número, 1 si el movimiento de el alfil es legal, 2 si el 
+movimiento de el alfil hace que se pueda comer una pieza enemiga o 0 si el movimiento no es legal.
+        
+
+
+
+int king(struct piece * piece, int x ,int y,struct piece ***board2);
+
+La función de rey recibe un apuntador a la pieza que se quiere  mover, un triple apuntador a pieza
+que es el tablero y las coordenadas de x,y a donde se quiere mover la pieza.
+
+Lo que hace la función es regresarnos un número, 1 si el movimiento del rey es legal, 2 si el 
+movimiento de rey hace que se pueda comer una pieza enemiga o 0 si el movimiento no es legal.
+
+int Reyna(struct piece * piece, int x ,int y,struct piece ***board2);
+
+La función de Reyna recibe un apuntador a la pieza que se quiere  mover, un triple apuntador a pieza
+que es el tablero y las coordenadas de x,y a donde se quiere mover la pieza.
+
+Lo que hace la función es regresarnos un número, 1 si el movimiento de la  reina es legal, 2 si el 
+movimiento de la reina hace que se pueda comer una pieza enemiga o 0 si el movimiento no es legal.
+
+void piece_count(struct piece ***board2,struct gamestate * game);
+Esta función lo que hace es que recibe un apuntador al tablero y un apuntador a la structura gamestate, lo que hace es contar y agregar la piezas que se tienen en el momento tanto piezas
+blancas como piezas negras, la función no regresa nada.
+
+void save_game(struct piece *** board2, FILE * file);
+void load_game(struct piece *** board2, FILE * file);
+
+Ambas funciones reciben un apuntador al tablero lo que hace es guardar y cargar desde un archivo binario el tablero en el estado que se quizo guardar.
+No regresa nada simplemente lee los archivos o pone información en el.
+
+void copiar_tablero(struct piece *** source, struct piece *** destination); esta función recibe un tablero existente y uno destino en donde se quiere copiar este, estafunción sirve cuando 
+se quiere guardar y cargar tableros, no regresa nada.
+
+
+struct piece ***create_empty_board();
+Esta función lo unico que hace es crear un tablero vacio que nos servira para copiar los tableros en el y se usa al guardar y cargar tableros.
+Esta función regresa el tablero vacio.
+
