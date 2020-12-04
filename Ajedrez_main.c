@@ -6,7 +6,7 @@ void main(){
 
 // /"Siempre existe una solución y si crees que no existe, solo es que la desconoces"-Show 2020
 
-
+struct piece **  board1[8];
 struct piece **  board2[8];
 
 struct piece *ap0[8];
@@ -17,7 +17,24 @@ struct piece *ap4[8];
 struct piece *ap5[8];
 struct piece *ap6[8];
 struct piece *ap7[8];
+//-----------------------------------
 
+struct piece *bp0[8];
+struct piece *bp1[8];
+struct piece *bp2[8];
+struct piece *bp3[8];   
+struct piece *bp4[8];
+struct piece *bp5[8];
+struct piece *bp6[8];
+struct piece *bp7[8];
+board1[0]=bp0;
+board1[1]=bp1;
+board1[2]=bp2;
+board1[3]=bp3;
+board1[4]=bp4;
+board1[5]=bp5;
+board1[6]=bp6;
+board1[7]=bp7;
 
 board2[0]=ap0;
 board2[1]=ap1;
@@ -49,42 +66,133 @@ int y1=0;
 int opt=0;
 int result=0;
 
-board2[6][7]=NULL;
+//board2[6][7]=NULL;
 
 //board2[6][0]=NULL;
-board2[6][4]=NULL;
+board2[6][3]=NULL;
 
 //board2[0][0]=NULL;
-board2[1][0]=NULL;
-board2[6][6]=NULL;
-board2[1][0]=NULL;
 board2[1][4]=NULL;
+//board2[6][3]=NULL;
+board2[1][3]=NULL;
+board2[1][7]=NULL;
 
 //board2[2][7]=board2[1][1];
 
+//clean_board(board2);
+piece_count(board2,&new_game);
+int count=0;
 
+/*while (new_game.Negras[count]!=NULL && count<16)
+{   
+
+  
+    printf("%i",count);
+    printf("pieza %c\n",new_game.Negras[count]->piece_type);
+    count++;
+
+   
+    
+    
+ 
+}*/
+init_game(board1);
+
+clean_board(board1);
+
+//print_board(board1);
 
  while(new_game.turn>0){
-        print_board(board2);
-        puts("\n");
-        puts("\n");
-        puts("\n");
-        puts("\n");
-        puts("\n");
+     
 
 
         if(new_game.turn==1){
-            puts("Turno de las blancas \n");
+            
+            puts("\n");
+            puts("\n");
+            puts("\n");
+            puts("\n");
+            puts("\n");
+            print_board(board2);
+            puts("\n");
+            int sf=is_king_safe(board2,&new_game,new_game.turn);
+   /* if (sf==3)
+    {       clean_board(board1);
+            coppy_board(board2,board1);
+            puts("tu rey esta en haque\n");
+            struct gamestate secondary;
+            struct piece * blancas[16];
+            struct piece * negras[16];
+            secondary.blancas=blancas;
+            secondary.Negras=negras;
 
-            printf("valor en y de la pieza\n");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }*/
+    
+
+
+
+
+
+   
+            puts("Turno de las blancas \n");
+            printf("el estado del rey es %i\n",sf);
+            puts("valor en y de la pieza\n");
             scanf("%i",&y);
-            printf("valor en x   de la pieza\n");
+            puts("valor en x   de la pieza\n");
             scanf("%i",&x);
 
-            printf("nueva  coordenada y\n");
+            puts("nueva  coordenada y\n");
             scanf("%i",&y1);
-            printf("nueva coordenada x\n");
+            puts("nueva coordenada x\n");
             scanf("%i",&x1);
+            
+            
      
             
              if(board2[y][x]!=NULL&&board2[y][x]->color=='W'){
@@ -129,14 +237,14 @@ board2[1][4]=NULL;
 
             while (board2[y][x]==NULL||board2[y][x]->color!='W'||result==0)
             {   puts("hey eso es ilegal");
-                printf("valor en y de la pieza\n");
+                puts("valor en y de la pieza\n");
                 scanf("%i",&y);
-                printf("valor en x   de la pieza\n");
+                puts("valor en x   de la pieza\n");
                 scanf("%i",&x);
 
-                printf("nueva  coordenada y\n");
+                puts("nueva  coordenada y\n");
                 scanf("%i",&y1);
-                printf("nueva coordenada x\n");
+                puts("nueva coordenada x\n");
                 scanf("%i",&x1);
                 if(board2[y][x]!=NULL&&board2[y][x]->color=='W'){
 
@@ -176,24 +284,34 @@ board2[1][4]=NULL;
                 }
             }  
             
-
+    
 
             printf("el resultado fue %i\n",result);
             swap(board2, y, x,  y1, x1,  result );
              piece_count(board2,&new_game);
         }
         if(new_game.turn==2){
-            new_game.turn=1;
+            
+            puts("\n");
+            puts("\n");
+            puts("\n");
+            puts("\n");
+            puts("\n");
+            print_board(board2);
+            puts("\n");
+            int sf=is_king_safe(board2,&new_game,new_game.turn);
             puts("Turno de las negras \n");
+            printf("el estado del rey es %i\n",sf);
 
-            printf("valor en y de la pieza\n");
+
+            puts("valor en y de la pieza\n");
             scanf("%i",&y);
-            printf("valor en x   de la pieza\n");
+            puts("valor en x   de la pieza\n");
             scanf("%i",&x);
 
-            printf("nueva  coordenada y\n");
+            puts("nueva  coordenada y\n");
             scanf("%i",&y1);
-            printf("nueva coordenada x\n");
+            puts("nueva coordenada x\n");
             scanf("%i",&x1);
                
              if(board2[y][x]!=NULL&&board2[y][x]->color=='B'){
@@ -239,14 +357,14 @@ board2[1][4]=NULL;
 
                     while (board2[y][x]==NULL||board2[y][x]->color!='B'||result==0)
                         {   puts("hey eso es ilegal");
-                            printf("valor en y de la pieza\n");
+                            puts("valor en y de la pieza\n");
                             scanf("%i",&y);
-                            printf("valor en x   de la pieza\n");
+                            puts("valor en x   de la pieza\n");
                             scanf("%i",&x);
 
-                            printf("nueva  coordenada y\n");
+                            puts("nueva  coordenada y\n");
                             scanf("%i",&y1);
-                            printf("nueva coordenada x\n");
+                            puts("nueva coordenada x\n");
                             scanf("%i",&x1);
                             if(board2[y][x]!=NULL&&board2[y][x]->color=='B'){
 
@@ -274,7 +392,7 @@ board2[1][4]=NULL;
                                     if (board2[y][x]->piece_type=='R')
                                     {
                                         result=Reyna(board2[y][x],x1,y1,board2);
-                                        new_game.turn=2;
+                                       
                                     }
                                                 
 
@@ -292,6 +410,7 @@ board2[1][4]=NULL;
             printf("el resultado fue %i\n",result);
             swap(board2, y, x,  y1, x1,  result );
             piece_count(board2,&new_game);
+             new_game.turn=1;
         }
 
 
