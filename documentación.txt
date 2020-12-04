@@ -1,3 +1,5 @@
+------------------por favor usar los archivos de la carpeta final---------------------------------------------------
+
 Funciones del ajedrez
 
 Este archivo describe que reciben las funciones, que es lo que regresan y en su función además también incluye
